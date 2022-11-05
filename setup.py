@@ -5,7 +5,7 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
-    name="streamlit-datalist",
+    name="streamlit_datalist",
     version="0.0.1",
     author="Roberto Frias Nerio",
     author_email="robertofnerio@gmail.com",

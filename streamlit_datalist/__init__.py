@@ -12,6 +12,7 @@ if _RELEASE:
         "stDatalist",
         path=build_dir
     )
+
 else:
     _streamlit_datalist = components.declare_component(
         "stDatalist",

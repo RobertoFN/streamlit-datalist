@@ -8,7 +8,7 @@ To install this component, run the following command:
 
 Importing and using the package can be done as follows:
   
-        from streamlit-datalist import stDatalist
+        from streamlit_datalist import stDatalist
         
         my_selection = stDatalist("This datalist is...", ["great", "cool", "neat"])
 

@@ -1,1 +1,1 @@
-recursive-include package/frontend/build *
+recursive-include streamlit_datalist/frontend/build *
