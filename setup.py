@@ -1,14 +1,18 @@
 import setuptools
 
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
+
 setuptools.setup(
     name="streamlit_datalist",
     version="0.0.1",
-    author="",
-    author_email="",
-    description="",
-    long_description="",
-    long_description_content_type="text/plain",
-    url="",
+    author="Roberto Frias Nerio",
+    author_email="robertofnerio@gmail.com",
+    description="Datalist element for Streamlit",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/RobertoFN/streamlit-datalist",
     packages=setuptools.find_packages(),
     include_package_data=True,
     classifiers=[],
