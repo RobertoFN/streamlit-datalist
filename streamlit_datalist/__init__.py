@@ -19,14 +19,12 @@ else:
     )
 
 
-
 def stDatalist(label:str, options:list, index:int=0, key=None):
     return _streamlit_datalist(label=label, options=options, index=index, key=key, default=None)
 
 
-if  _RELEASE:
-    
-    
+if not _RELEASE:
+ 
     my_sel = stDatalist('This datalist is...', ["great", "cool", "neat"], key='1')
 
     st.write('')
