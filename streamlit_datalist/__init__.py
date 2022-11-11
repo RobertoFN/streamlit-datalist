@@ -21,24 +21,37 @@ else:
     )
 
 
-def stDatalist(label:str, options:list, index:int=0, key=None):
-    return _streamlit_datalist(label=label, options=options, index=index, key=key, default=None)
+def stDatalist(label:str, options:list, index:int=None, key=None):
+    def_val = options[index] if index!=None else None
+    react_val = def_val
+
+    return_vals = _streamlit_datalist(label=label, options=options, def_val=def_val, key=key)
+
+    if return_vals: react_val = return_vals[0]
+
+    return react_val
+
 
 
 ## Code used during testing and development.
 if not _RELEASE:
     
     data = {'data':[12345, 67890, 98765]}
-
     my_df = pd.DataFrame(data=data)
 
+    # data = my_df['data'].tolist()
     data=["great", "cool", "neat"]
+    u_ind = 1
+
+    st.write(data)
+    st.write(u_ind)
 
     cont1 = st.container()
     st.markdown('<hr style="border:0px; background-color:orange; height:2px;">', unsafe_allow_html=True)
 
-    my_sel = stDatalist('This datalist is...', data, key='1')
-    # my_sel = stDatalist('This datalist is...', my_df['data'].tolist(), key='1')
+    def_sel = 'Default_value'
+
+    my_sel1 = stDatalist('This datalist is...', options=data, index=u_ind, key='data')
 
     with cont1:
-        st.write('The value you selected is: ', my_sel)
+        st.write('The value you selected is: ', my_sel1)

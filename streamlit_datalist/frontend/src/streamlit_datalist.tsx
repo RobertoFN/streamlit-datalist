@@ -3,33 +3,24 @@ import {
   StreamlitComponentBase,
   withStreamlitConnection,
 } from "streamlit-component-lib"
-import React, { ReactNode } from "react"
+import React, { ReactNode, useState } from "react"
 
 class StreamlitDatalist extends StreamlitComponentBase {
   public state = { selection: null, isFocused: false }
 
   public render = (): ReactNode => {
-    const options = this.props.args["options"]
-    const label = this.props.args["label"]
+    const { options, label, def_val } = this.props.args
+
+    var i = 0
     const options_html = []
-
     for (let option of options){
-      options_html.push(<option value={option}/>);
+      options_html.push(<option value={option} id={option} key={i}/>);
+      i+=1;
     }
-
+    
     const { theme } = this.props
     const styleLabel: React.CSSProperties = {}
     const styleInput: React.CSSProperties = {}
-
-    // Maintain compatibility with older versions of Streamlit that don't send
-    // a theme object.
-    // if (theme) {
-    //   const borderStyling = `0px solid ${
-    //     this.state.isFocused ? theme.primaryColor : "gray"
-    //   }`
-    //   style.border = borderStyling
-    //   style.outline = borderStyling
-    // }
 
     styleLabel.width = '100%'
     styleLabel.fontSize = '14px'
@@ -53,10 +44,6 @@ class StreamlitDatalist extends StreamlitComponentBase {
     styleInput.textIndent = "2px"
     styleInput.fontWeight = "normal"
 
-    // if (theme?.base === 'light') {
-    //   styleInput.color = "rgb(49, 51, 63)"
-    // }
-
     if (this.state.isFocused) {
       styleInput.borderColor = theme?.primaryColor
       styleInput.outline = '0px'
@@ -69,7 +56,8 @@ class StreamlitDatalist extends StreamlitComponentBase {
               list="datalist-datalist" 
               name="datalist" 
               id="datalist" 
-              onChange={evt => this.updateInputValue(evt)}
+              defaultValue = {def_val}
+              onChange={evt => this._updateInputValue(evt)}
               onFocus={this._onFocus}
               onBlur={this._onBlur}
               />
@@ -82,22 +70,25 @@ class StreamlitDatalist extends StreamlitComponentBase {
     )
   }
 
-  private updateInputValue(evt:any) {
+  private _updateInputValue(evt:any) {
     const val = evt.target.value;
-    // this.setState({ selection: val })
-    Streamlit.setComponentValue(val) 
+
+    if (val===''){
+      Streamlit.setComponentValue([null])
+    }else{
+      Streamlit.setComponentValue([val])
+    }
   }
 
-  /** Focus handler for our "Click Me!" button. */
   private _onFocus = (): void => {
     this.setState({ isFocused: true })
   }
 
-  /** Blur handler for our "Click Me!" button. */
   private _onBlur = (): void => {
     this.setState({ isFocused: false })
   }
 
 }
+
 
 export default withStreamlitConnection(StreamlitDatalist)
