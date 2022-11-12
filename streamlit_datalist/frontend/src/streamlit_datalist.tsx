@@ -3,14 +3,14 @@ import {
   StreamlitComponentBase,
   withStreamlitConnection,
 } from "streamlit-component-lib"
-import React, { ReactNode, useState } from "react"
+import React, { ReactNode } from "react"
 
 class StreamlitDatalist extends StreamlitComponentBase {
-  public state = { selection: null, isFocused: false }
+  public state = { selection: null, isFocused: false , value: ''}
 
   public render = (): ReactNode => {
     const { options, label, def_val } = this.props.args
-
+    
     var i = 0
     const options_html = []
     for (let option of options){
@@ -57,26 +57,24 @@ class StreamlitDatalist extends StreamlitComponentBase {
               name="datalist" 
               id="datalist" 
               defaultValue = {def_val}
-              onChange={evt => this._updateInputValue(evt)}
+              onChange = {this._updateInputValue}
               onFocus={this._onFocus}
               onBlur={this._onBlur}
+              key = {def_val}
               />
         
         <datalist id="datalist-datalist" className='rowWid'>
           {options_html}
         </datalist>
-
       </span>
     )
   }
 
-  private _updateInputValue(evt:any) {
-    const val = evt.target.value;
-
-    if (val===''){
+  private _updateInputValue(event:any) {
+    if (event.target.value===''){
       Streamlit.setComponentValue([null])
     }else{
-      Streamlit.setComponentValue([val])
+      Streamlit.setComponentValue([event.target.value])
     }
   }
 
