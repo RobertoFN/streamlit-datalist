@@ -24,7 +24,6 @@ else:
 def stDatalist(label:str, options:list, index:int=None, key=None):
     def_val = options[index] if index!=None else None
     react_val = def_val
-
     return_vals = _streamlit_datalist(label=label, options=options, def_val=def_val, key=key)
 
     if return_vals: react_val = return_vals[0]
@@ -40,10 +39,10 @@ if not _RELEASE:
     my_df = pd.DataFrame(data=data)
 
     # data = my_df['data'].tolist()
-    data=["great", "cool", "neat"]
+    col1,col2 = st.columns(2)
+    data = col1.radio('Select list', [["great", "cool", "neat"], ["ABC", "DEF", "GHI"], [123,456,789]])
+    col2.write(data)
     u_ind = 1
-
-    st.write(data)
     st.write(u_ind)
 
     cont1 = st.container()
@@ -52,6 +51,8 @@ if not _RELEASE:
     def_sel = 'Default_value'
 
     my_sel1 = stDatalist('This datalist is...', options=data, index=u_ind, key='data')
+
+    st.selectbox('Native element', data, index=u_ind, key='hi')
 
     with cont1:
         st.write('The value you selected is: ', my_sel1)

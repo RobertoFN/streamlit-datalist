@@ -32,6 +32,10 @@ Component's key. Required when multiple datalists will be used in the Streamlit 
 
 <br>
 
+<h3>v0.0.3</h3>
+Changes:
+<li>Fix: Default value now refreshes when input data changes.
+
 <h3>v0.0.2</h3>
 Changes:
 <li>Added <i>index</i> parameter, to specify a default selection from the options list.
