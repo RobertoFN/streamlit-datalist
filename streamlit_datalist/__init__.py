@@ -21,10 +21,10 @@ else:
     )
 
 
-def stDatalist(label:str, options:list, index:int=None, key=None):
+def stDatalist(label:str, options:list, index:int=None, key=None, disabled:bool=False):
     def_val = options[index] if index!=None else None
     react_val = def_val
-    return_vals = _streamlit_datalist(label=label, options=options, def_val=def_val, key=key)
+    return_vals = _streamlit_datalist(label=label, options=options, def_val=def_val, key=key, widget_disabled=disabled)
 
     if return_vals: react_val = return_vals[0]
 
@@ -50,9 +50,9 @@ if not _RELEASE:
 
     def_sel = 'Default_value'
 
-    my_sel1 = stDatalist('This datalist is...', options=data, index=u_ind, key='data')
+    my_sel1 = stDatalist('This datalist is...', options=data, index=u_ind, key='data', disabled=False)
 
-    st.selectbox('Native element', data, index=u_ind, key='hi')
+    st.selectbox('Native element', data, index=u_ind, key='hi', disabled=True)
 
     with cont1:
         st.write('The value you selected is: ', my_sel1)

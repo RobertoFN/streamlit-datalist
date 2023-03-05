@@ -9,7 +9,7 @@ class StreamlitDatalist extends StreamlitComponentBase {
   public state = { selection: null, isFocused: false , value: ''}
 
   public render = (): ReactNode => {
-    const { options, label, def_val } = this.props.args
+    const { options, label, def_val, widget_disabled} = this.props.args
     
     var i = 0
     const options_html = []
@@ -49,6 +49,11 @@ class StreamlitDatalist extends StreamlitComponentBase {
       styleInput.outline = '0px'
     }
 
+    if (widget_disabled==true){
+      styleInput.color = "rgba(120,120,120,0.65)"
+      styleLabel.color = "rgba(120,120,120,0.65)"
+    }
+
     return (
       <span>
         <label style = {styleLabel}> {label} <br/> </label>
@@ -61,6 +66,7 @@ class StreamlitDatalist extends StreamlitComponentBase {
               onFocus={this._onFocus}
               onBlur={this._onBlur}
               key = {def_val}
+              disabled = {widget_disabled}
               />
         
         <datalist id="datalist-datalist" className='rowWid'>
