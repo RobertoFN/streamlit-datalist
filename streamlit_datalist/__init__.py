@@ -3,7 +3,7 @@ import streamlit as st
 import os
 import pandas as pd
 
-_RELEASE = True
+_RELEASE = False
 
 if _RELEASE:
     root_dir = os.path.dirname(os.path.abspath(__file__))
@@ -50,7 +50,8 @@ if not _RELEASE:
 
     def_sel = 'Default_value'
 
-    my_sel1 = stDatalist('This datalist is...', options=data, index=u_ind, key='data', disabled=False)
+    dis_but = st.checkbox('Disable datalist',value=False)
+    my_sel1 = stDatalist('This datalist is...', options=data, index=u_ind, key='data', disabled=dis_but)
 
     st.selectbox('Native element', data, index=u_ind, key='hi', disabled=True)
 
