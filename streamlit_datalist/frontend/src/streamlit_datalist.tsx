@@ -49,7 +49,7 @@ class StreamlitDatalist extends StreamlitComponentBase {
       styleInput.outline = '0px'
     }
 
-    if (widget_disabled==true){
+    if (widget_disabled===true){
       styleInput.color = "rgba(120,120,120,0.65)"
       styleLabel.color = "rgba(120,120,120,0.65)"
     }
@@ -62,11 +62,14 @@ class StreamlitDatalist extends StreamlitComponentBase {
               name="datalist" 
               id="datalist" 
               defaultValue = {def_val}
-              onChange = {this._updateInputValue}
+              // onChange = {this._updateInputValue}
+              onKeyDown = {this._handleKeyPress}
               onFocus={this._onFocus}
               onBlur={this._onBlur}
               key = {def_val}
               disabled = {widget_disabled}
+              autoComplete = 'off'
+
               />
         
         <datalist id="datalist-datalist" className='rowWid'>
@@ -84,12 +87,28 @@ class StreamlitDatalist extends StreamlitComponentBase {
     }
   }
 
+
+  private _handleKeyPress = (event:any) => {
+    if(event.key === 'Enter'){
+      if (event.target.value===''){
+        Streamlit.setComponentValue([null])
+      }else{
+        Streamlit.setComponentValue([event.target.value])
+      }
+    }
+  }
+
   private _onFocus = (): void => {
     this.setState({ isFocused: true })
   }
 
-  private _onBlur = (): void => {
+  private _onBlur = (event:any): void => {
     this.setState({ isFocused: false })
+    if (event.target.value===''){
+      Streamlit.setComponentValue([null])
+    }else{
+      Streamlit.setComponentValue([event.target.value])
+    }
   }
 
 }
