@@ -32,6 +32,15 @@ Component's key. Required when multiple datalists will be used in the Streamlit 
 
 <br>
 
+<h3>v0.0.5</h3>
+Changes:
+<li>Fixing README and version of package.
+
+<h3>v0.0.4a0</h3>
+Changes:
+<li>Adding <i>disabled</i> attribute, to set the state of the widget.
+<li>Changed the way the widget updates. Now value will only update when clicking away of the widget, or by hitting the Enter key.
+
 <h3>v0.0.3</h3>
 Changes:
 <li>Fix: Default value now refreshes when input data changes.

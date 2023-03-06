@@ -6,7 +6,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
     name="streamlit_datalist",
-    version="0.0.3",
+    version="0.0.5",
     author="Roberto Frias Nerio",
     author_email="robertofnerio@gmail.com",
     description="Datalist element for Streamlit",

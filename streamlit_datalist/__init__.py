@@ -3,7 +3,7 @@ import streamlit as st
 import os
 import pandas as pd
 
-_RELEASE = False
+_RELEASE = True
 
 if _RELEASE:
     root_dir = os.path.dirname(os.path.abspath(__file__))
