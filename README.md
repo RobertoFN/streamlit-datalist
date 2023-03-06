@@ -30,6 +30,9 @@ Index of the list element to be displayed as a default value. Defaults to <i>Non
 - <b>key</b>: <i>int, str</i> (optional, default <i>None</i>)<br>
 Component's key. Required when multiple datalists will be used in the Streamlit app. 
 
+- <b>disabled</b>: <i>bool</i> (optional, default <i>False</i>)<br>
+Use this attribute to enable/disable the widget. 
+
 <br>
 
 <h3>v0.0.5</h3>
