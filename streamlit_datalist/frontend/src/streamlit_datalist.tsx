@@ -1,34 +1,23 @@
-import React, { ReactNode } from "react";
 import {
-  ComponentProps,
   Streamlit,
   StreamlitComponentBase,
   withStreamlitConnection,
-} from "streamlit-component-lib";
+} from "streamlit-component-lib"
+import React, { ReactNode } from "react"
 
 class StreamlitDatalist extends StreamlitComponentBase {
-  public state = { selection: null, isFocused: false, value: '' }
-
-  constructor(props: ComponentProps) {
-    super(props);
-    this.state = { selection: null, isFocused: false, value: '' }
-    this._updateInputValue = this._updateInputValue.bind(this)
-    this._handleKeyPress = this._handleKeyPress.bind(this)
-    this._onFocus = this._onFocus.bind(this)
-    this._onBlur = this._onBlur.bind(this)
-    this._debounce = this._debounce.bind(this)
-  }
+  public state = { selection: null, isFocused: false , value: ''}
 
   public render = (): ReactNode => {
-    const { options, label, def_val, widget_disabled } = this.props.args
-
+    const { options, label, def_val, widget_disabled} = this.props.args
+    
     var i = 0
     const options_html = []
-    for (let option of options) {
-      options_html.push(<option value={option} id={option} key={i} />);
-      i += 1;
+    for (let option of options){
+      options_html.push(<option value={option} id={option} key={i}/>);
+      i+=1;
     }
-
+    
     const { theme } = this.props
     const styleLabel: React.CSSProperties = {}
     const styleInput: React.CSSProperties = {}
@@ -60,28 +49,29 @@ class StreamlitDatalist extends StreamlitComponentBase {
       styleInput.outline = '0px'
     }
 
-    if (widget_disabled === true) {
+    if (widget_disabled===true){
       styleInput.color = "rgba(120,120,120,0.65)"
       styleLabel.color = "rgba(120,120,120,0.65)"
     }
 
     return (
       <span>
-        <label style={styleLabel}> {label} <br /> </label>
-        <input style={styleInput}
-          list="datalist-datalist"
-          name="datalist"
-          id="datalist"
-          defaultValue={def_val}
-          onChange={(this.props.args.delay === null) ? (event) => { } : this._debounce(this._updateInputValue)}
-          onKeyDown={this._handleKeyPress}
-          onFocus={this._onFocus}
-          onBlur={this._onBlur}
-          key={def_val}
-          disabled={widget_disabled}
-          autoComplete='off'
-        />
+        <label style = {styleLabel}> {label} <br/> </label>
+        <input style = {styleInput}
+              list="datalist-datalist" 
+              name="datalist" 
+              id="datalist" 
+              defaultValue = {def_val}
+              // onChange = {this._updateInputValue}
+              onKeyDown = {this._handleKeyPress}
+              onFocus={this._onFocus}
+              onBlur={this._onBlur}
+              key = {def_val}
+              disabled = {widget_disabled}
+              autoComplete = 'off'
 
+              />
+        
         <datalist id="datalist-datalist" className='rowWid'>
           {options_html}
         </datalist>
@@ -89,29 +79,20 @@ class StreamlitDatalist extends StreamlitComponentBase {
     )
   }
 
-  private _debounce = (fn: (event: any) => void) => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-    const delay: number = this.props.args.delay;
-    return function (event: any) {
-      event.persist();
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => fn(event), delay);
-    };
-  };
-
-  private _updateInputValue(event: any) {
-    if (event.target.value === '') {
+  private _updateInputValue(event:any) {
+    if (event.target.value===''){
       Streamlit.setComponentValue([null])
-    } else {
+    }else{
       Streamlit.setComponentValue([event.target.value])
     }
   }
 
-  private _handleKeyPress = (event: any) => {
-    if (event.key === 'Enter') {
-      if (event.target.value === '') {
+
+  private _handleKeyPress = (event:any) => {
+    if(event.key === 'Enter'){
+      if (event.target.value===''){
         Streamlit.setComponentValue([null])
-      } else {
+      }else{
         Streamlit.setComponentValue([event.target.value])
       }
     }
@@ -121,11 +102,11 @@ class StreamlitDatalist extends StreamlitComponentBase {
     this.setState({ isFocused: true })
   }
 
-  private _onBlur = (event: any): void => {
+  private _onBlur = (event:any): void => {
     this.setState({ isFocused: false })
-    if (event.target.value === '') {
+    if (event.target.value===''){
       Streamlit.setComponentValue([null])
-    } else {
+    }else{
       Streamlit.setComponentValue([event.target.value])
     }
   }

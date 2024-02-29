@@ -1,9 +1,7 @@
-import os
-from typing import Optional
-
-import pandas as pd
-import streamlit as st
 import streamlit.components.v1 as components
+import streamlit as st
+import os
+import pandas as pd
 
 _RELEASE = True
 
@@ -23,24 +21,10 @@ else:
     )
 
 
-def stDatalist(
-    label: str,
-    options: list,
-    index: Optional[int] = None,
-    key: Optional[str] = None,
-    disabled: bool = False,
-    delay: Optional[int] = None
-):
+def stDatalist(label:str, options:list, index:int=None, key=None, disabled:bool=False):
     def_val = options[index] if index!=None else None
     react_val = def_val
-    return_vals = _streamlit_datalist(
-        label=label,
-        options=options,
-        def_val=def_val,
-        key=key,
-        widget_disabled=disabled,
-        delay=delay
-    )
+    return_vals = _streamlit_datalist(label=label, options=options, def_val=def_val, key=key, widget_disabled=disabled)
 
     if return_vals: react_val = return_vals[0]
 
@@ -67,7 +51,7 @@ if not _RELEASE:
     def_sel = 'Default_value'
 
     dis_but = st.checkbox('Disable datalist',value=False)
-    my_sel1 = stDatalist('This datalist is...', options=data, index=u_ind, key='data', disabled=dis_but, delay=300)
+    my_sel1 = stDatalist('This datalist is...', options=data, index=u_ind, key='data', disabled=dis_but)
 
     st.selectbox('Native element', data, index=u_ind, key='hi', disabled=True)
 
