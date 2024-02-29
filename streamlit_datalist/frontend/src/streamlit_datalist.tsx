@@ -1,15 +1,15 @@
+import React, { ReactNode } from "react"
 import {
   Streamlit,
   StreamlitComponentBase,
   withStreamlitConnection,
 } from "streamlit-component-lib"
-import React, { ReactNode } from "react"
 
 class StreamlitDatalist extends StreamlitComponentBase {
   public state = { selection: null, isFocused: false , value: ''}
 
   public render = (): ReactNode => {
-    const { options, label, def_val, widget_disabled} = this.props.args
+    const { options, label, def_val, widget_disabled, delay} = this.props.args
     
     var i = 0
     const options_html = []
@@ -62,7 +62,7 @@ class StreamlitDatalist extends StreamlitComponentBase {
               name="datalist" 
               id="datalist" 
               defaultValue = {def_val}
-              // onChange = {this._updateInputValue}
+              onChange={(this.props.args.delay === null) ? (event) => { } : this._debounce(this._updateInputValue, delay)}
               onKeyDown = {this._handleKeyPress}
               onFocus={this._onFocus}
               onBlur={this._onBlur}
@@ -87,6 +87,14 @@ class StreamlitDatalist extends StreamlitComponentBase {
     }
   }
 
+  private _debounce = (fn: (event: any) => void, delay: number) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    return function (event: any) {
+      event.persist();
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => fn(event), delay);
+    };
+  };
 
   private _handleKeyPress = (event:any) => {
     if(event.key === 'Enter'){
